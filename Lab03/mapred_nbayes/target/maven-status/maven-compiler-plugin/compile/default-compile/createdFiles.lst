@@ -1,0 +1,5 @@
+NaiveBayesTrainReducer.class
+NaiveBayesTrainJob.class
+NaiveBayesTestMapper.class
+NaiveBayesTrainMapper.class
+NaiveBayesTestJob.class

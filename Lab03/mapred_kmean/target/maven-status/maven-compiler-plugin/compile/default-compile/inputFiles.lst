@@ -1,0 +1,5 @@
+/home/hadoop/Documents/Lab03/mapred_kmean/KCombiner.java
+/home/hadoop/Documents/Lab03/mapred_kmean/KMapper.java
+/home/hadoop/Documents/Lab03/mapred_kmean/KReducer.java
+/home/hadoop/Documents/Lab03/mapred_kmean/Main.java
+/home/hadoop/Documents/Lab03/mapred_kmean/PointWritable.java

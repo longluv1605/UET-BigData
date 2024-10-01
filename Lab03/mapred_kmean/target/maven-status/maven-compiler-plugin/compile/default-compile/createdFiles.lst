@@ -1,0 +1,5 @@
+PointWritable.class
+Main.class
+KCombiner.class
+KMapper.class
+KReducer.class

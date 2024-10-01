@@ -1,0 +1,5 @@
+/home/hadoop/Documents/Lab03/mapred_nbayes/NaiveBayesTestJob.java
+/home/hadoop/Documents/Lab03/mapred_nbayes/NaiveBayesTestMapper.java
+/home/hadoop/Documents/Lab03/mapred_nbayes/NaiveBayesTrainJob.java
+/home/hadoop/Documents/Lab03/mapred_nbayes/NaiveBayesTrainMapper.java
+/home/hadoop/Documents/Lab03/mapred_nbayes/NaiveBayesTrainReducer.java
