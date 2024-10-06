@@ -3,15 +3,13 @@
 
 import sys
 import math
-from hdfs import InsecureClient
 
 
-def get_probs(hdfs_filepath):
-    client = InsecureClient("http://0.0.0.0:9870")
+def get_probs(filepath):
     priors, conditional_probs = {}, {}
 
-    with client.read(hdfs_filepath) as reader:
-        for line in reader:
+    with open(filepath, "r") as reader:
+        for line in reader.readlines():
             key, count = line.decode().strip().split("\t")
             title, value = key.split(":")
             if title == "label":
@@ -31,30 +29,30 @@ def get_probs(hdfs_filepath):
 
 
 def mapper():
-    priors, conditional_probs = get_probs("part-00000")
+    priors, conditional_probs = get_probs(sys.argv[1])
 
     for line in sys.stdin:
         line = line.strip()
         outlook, temperature, humidity, wind = line.split()
 
         # Calculate log-likelihood
-        scores = {"yes": math.log(priors["yes"]), "no": math.log(priors["no"])}
+        scores = {"Yes": math.log(priors["Yes"]), "No": math.log(priors["No"])}
 
-        scores["yes"] += math.log(conditional_probs.get(f"outlook:{outlook}|yes", 1e-6))
-        scores["yes"] += math.log(
-            conditional_probs.get(f"temperature:{temperature}|yes", 1e-6)
+        scores["Yes"] += math.log(conditional_probs.get(f"outlook:{outlook}|Yes", 1e-6))
+        scores["Yes"] += math.log(
+            conditional_probs.get(f"temperature:{temperature}|Yes", 1e-6)
         )
-        scores["yes"] += math.log(
-            conditional_probs.get(f"humidity:{humidity}|yes", 1e-6)
+        scores["Yes"] += math.log(
+            conditional_probs.get(f"humidity:{humidity}|Yes", 1e-6)
         )
-        scores["yes"] += math.log(conditional_probs.get(f"wind:{wind}|yes", 1e-6))
+        scores["Yes"] += math.log(conditional_probs.get(f"wind:{wind}|Yes", 1e-6))
 
-        scores["no"] += math.log(conditional_probs.get(f"outlook:{outlook}|no", 1e-6))
-        scores["no"] += math.log(
-            conditional_probs.get(f"temperature:{temperature}|no", 1e-6)
+        scores["No"] += math.log(conditional_probs.get(f"outlook:{outlook}|No", 1e-6))
+        scores["No"] += math.log(
+            conditional_probs.get(f"temperature:{temperature}|No", 1e-6)
         )
-        scores["no"] += math.log(conditional_probs.get(f"humidity:{humidity}|no", 1e-6))
-        scores["no"] += math.log(conditional_probs.get(f"wind:{wind}|no", 1e-6))
+        scores["No"] += math.log(conditional_probs.get(f"humidity:{humidity}|No", 1e-6))
+        scores["No"] += math.log(conditional_probs.get(f"wind:{wind}|No", 1e-6))
 
         for label, score in scores.items():
             print(f"{label}\t{score}")
