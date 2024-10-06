@@ -7,7 +7,7 @@ from hdfs import InsecureClient
 
 
 def get_probs(hdfs_filepath):
-    client = InsecureClient("http://namenode:50070")
+    client = InsecureClient("http://0.0.0.0:9870")
     priors, conditional_probs = {}, {}
 
     with client.read(hdfs_filepath) as reader:
@@ -31,7 +31,7 @@ def get_probs(hdfs_filepath):
 
 
 def mapper():
-    priors, conditional_probs = get_probs("train_output")
+    priors, conditional_probs = get_probs("part-00000")
 
     for line in sys.stdin:
         line = line.strip()
