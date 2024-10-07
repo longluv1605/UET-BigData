@@ -3,30 +3,32 @@
 
 import sys
 import math
-# from hdfs import InsecureClient # type: ignore
+"""
+from hdfs import InsecureClient # type: ignore
 
-# def get_probs(filepath):
-#     client = InsecureClient('http://0.0.0.0:9870')
-#     priors, conditional_probs = {}, {}
+def get_probs(filepath):
+    client = InsecureClient('http://0.0.0.0:9870')
+    priors, conditional_probs = {}, {}
 
-#     with client.read(filepath) as reader:
-#         for line in reader:
-#             key, count = line.decode().strip().split("\t")
-#             title, value = key.split(":")
-#             if title == "label":
-#                 priors[value] = int(count)
-#             else:
-#                 conditional_probs[key] = int(count)
+    with client.read(filepath) as reader:
+        for line in reader:
+            key, count = line.decode().strip().split("\t")
+            title, value = key.split(":")
+            if title == "label":
+                priors[value] = int(count)
+            else:
+                conditional_probs[key] = int(count)
 
-#     for key in conditional_probs.keys():
-#         _, label = key.split("|")
-#         conditional_probs[key] /= priors[label]
+    for key in conditional_probs.keys():
+        _, label = key.split("|")
+        conditional_probs[key] /= priors[label]
 
-#     total = sum(priors.values())
-#     for key in priors.keys():
-#         priors[key] /= total
+    total = sum(priors.values())
+    for key in priors.keys():
+        priors[key] /= total
 
-#     return priors, conditional_probs
+    return priors, conditional_probs
+"""
 
 def get_probs(filepath):
     priors, conditional_probs = {}, {}
