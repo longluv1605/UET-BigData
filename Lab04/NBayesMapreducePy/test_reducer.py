@@ -4,20 +4,27 @@
 import sys
 
 def reducer():
-    current_label = None
+    curr_record = None
     max_score = -float('inf')
     best_label = None
 
     for line in sys.stdin:
         line = line.strip()
-        label, score = line.split('\t')
+        record, label_score = line.split('\t')
+        label, score = label_score.split(':')
         score = float(score)
-
-        if score > max_score:
+        if curr_record == record:
+            if score > max_score:
+                max_score = score
+                best_label = label
+        else:
+            if curr_record is not None:
+                print(f'{curr_record}-->{best_label}')
+            curr_record = record
             max_score = score
             best_label = label
 
-    print(f"Predicted label: {best_label}")
+    print(f'{curr_record}-->{best_label}')
 
 if __name__ == "__main__":
     reducer()
