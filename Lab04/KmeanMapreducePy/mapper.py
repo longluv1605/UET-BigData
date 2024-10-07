@@ -13,26 +13,18 @@ def euclidean_distance(point, centroid):
 def getCentroids(filepath):
     centroids = []
 
-    with open(filepath) as fp:
-        line = fp.readline()
-        while line:
-            if line:
-                try:
-                    line = line.strip()
-                    cord = line.split(",")
-                    centroids.append([float(cord[0]), float(cord[1])])
-                except:
-                    break
-            else:
-                break
-            line = fp.readline()
+    with open(filepath, 'r') as fp:
+        for line in fp.readlines():
+            line = line.strip()
+            cord = line.split(",")
+            centroids.append([float(cord[0]), float(cord[1])])
 
     fp.close()
     return centroids
 
 
-def map(filepath):
-    init_centroids = getCentroids(filepath)
+def map():
+    init_centroids = getCentroids(sys.argv[1])
 
     for line in sys.stdin:
         line = line.strip()
@@ -52,4 +44,4 @@ def map(filepath):
 
 
 if __name__ == "__main__":
-    map("centroids.txt")
+    map()
