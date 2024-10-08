@@ -1,0 +1,3 @@
+com/hadoop/mapreduce/WCReducer.class
+com/hadoop/mapreduce/WordCount.class
+com/hadoop/mapreduce/WCMapper.class
