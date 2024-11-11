@@ -1,0 +1,9 @@
+pandas
+numpy
+matplotlib
+pyspark
+networkx
+pip install beautifulsoup4
+cassandra-driver
+time_uuid
+pymongo
