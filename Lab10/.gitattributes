@@ -1,0 +1,11 @@
+*.hql linguist-detectable=true
+*.sql linguist-detectable=true
+*.sh linguist-detectable=true
+*.py linguist-detectable=true
+
+README.md linguist-vendored=false
+*.md linguist-language=Markdown
+*.md linguist-detectable=true
+
+Capstone.ipynb linguist-vendored=true
+*.ipynb linguist-detectable=false
