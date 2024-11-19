@@ -1,5 +1,5 @@
 -- Database
-USE anabig114212_cap;
+USE capstone_proj;
 SHOW TABLES;
 -- Table Stats for Employees Table
 COMPUTE STATS employees;

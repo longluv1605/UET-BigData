@@ -1,4 +1,6 @@
-USE anabig114212;
+CREATE DATABASE IF NOT EXISTS capstone_proj;
+
+USE capstone_proj;
 
 START TRANSACTION;
 
@@ -73,13 +75,13 @@ CREATE TABLE salaries (
 ALTER TABLE salaries ADD CONSTRAINT fk_salaries_emp_no FOREIGN KEY(emp_no)
 REFERENCES employees (emp_no);
 
-LOAD DATA LOCAL INFILE '/home/anabig114212/departments.csv' INTO TABLE departments FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
-LOAD DATA LOCAL INFILE '/home/anabig114212/titles.csv' INTO TABLE titles FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
-LOAD DATA LOCAL INFILE '/home/anabig114212/employees.csv' INTO TABLE employees FIELDS TERMINATED BY ','OPTIONALLY ENCLOSED BY ''  LINES TERMINATED BY '\n' IGNORE 1 ROWS 
+LOAD DATA LOCAL INFILE '/home/hadoop/Capstone_Project/Capstone_Inputs/departments.csv' INTO TABLE departments FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
+LOAD DATA LOCAL INFILE '/home/hadoop/Capstone_Project/Capstone_Inputs/titles.csv' INTO TABLE titles FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
+LOAD DATA LOCAL INFILE '/home/hadoop/Capstone_Project/Capstone_Inputs/employees.csv' INTO TABLE employees FIELDS TERMINATED BY ','OPTIONALLY ENCLOSED BY ''  LINES TERMINATED BY '\n' IGNORE 1 ROWS 
 SET birth_date = STR_TO_DATE(birth_date, "%m/%d/%Y"), hire_date = STR_TO_DATE(hire_date, "%m/%d/%Y"), last_date = STR_TO_DATE(last_date, "%m/%d/%Y");
-LOAD DATA LOCAL INFILE '/home/anabig114212/dept_manager.csv' INTO TABLE dept_manager FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
-LOAD DATA LOCAL INFILE '/home/anabig114212/dept_emp.csv' INTO TABLE dept_emp FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
-LOAD DATA LOCAL INFILE '/home/anabig114212/salaries.csv' INTO TABLE salaries FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
+LOAD DATA LOCAL INFILE '/home/hadoop/Capstone_Project/Capstone_Inputs/dept_manager.csv' INTO TABLE dept_manager FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
+LOAD DATA LOCAL INFILE '/home/hadoop/Capstone_Project/Capstone_Inputs/dept_emp.csv' INTO TABLE dept_emp FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
+LOAD DATA LOCAL INFILE '/home/hadoop/Capstone_Project/Capstone_Inputs/salaries.csv' INTO TABLE salaries FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
 COMMIT;
 
