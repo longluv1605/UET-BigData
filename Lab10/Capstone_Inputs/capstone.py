@@ -5,28 +5,27 @@
 # # **Loading Hive Tables and Data Preparation for Analysis**
 
 # In[125]:
+import pandas as pd # type: ignore
+import pyspark.sql.functions as F # type: ignore
+from pyspark.sql.functions import col, year, to_date, greatest, count, max # type: ignore
+from pyspark.sql import SparkSession # type: ignore
+from pyspark.ml.classification import LogisticRegression, RandomForestClassifier # type: ignore
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator, BinaryClassificationEvaluator # type: ignore
+from pyspark.ml import Pipeline # type: ignore
+from pyspark.ml.feature import OneHotEncoder, StringIndexer, VectorAssembler # type: ignore
 
-import pandas as pd
-import pyspark.sql.functions as F
-from pyspark.sql.functions \
-    import col, year, to_date, greatest, count, max
-from pyspark.sql import SparkSession
-from pyspark.ml.classification import LogisticRegression
-from pyspark.ml.evaluation import MulticlassClassificationEvaluator, BinaryClassificationEvaluator
-from pyspark.ml.classification import RandomForestClassifier
-from pyspark.ml import Pipeline
-from pyspark.ml.feature \
-    import OneHotEncoderEstimator, StringIndexer, VectorAssembler
+# Initialize Spark session with Hive support
+spark = SparkSession.builder.appName("Subham_Capstone") \
+    .config("hive.metastore.uris", "thrift://localhost:9083") \
+    .config("spark.sql.catalogImplementation", "hive") \
+    .config("spark.sql.warehouse.dir", "hdfs://localhost:9000/user/hive/Capstone") \
+    .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer") \
+    .enableHiveSupport() \
+    .getOrCreate()
 
-spark = SparkSession.builder.appName("Subham_Capstone").config(
-    "hive.metastore.uris",
-    "thrift://ip-10-1-2-24.ap-south-1.compute.internal:9083").config(
-        "spark.sql.catalogImplementation=hive").config(
-        "spark.sql.warehouse.dir",
-        "hdfs://nameservice1/user/anabig114212/hive/Capstone").config(
-            "spark.serializer",
-    "org.apache.spark.serializer.KryoSerializer").enableHiveSupport().getOrCreate()
+# Set Spark log level to OFF
 spark.sparkContext.setLogLevel('OFF')
+
 
 # In[126]:
 
@@ -768,8 +767,8 @@ df.select('sex', 'sex_Index', 'dept_name', 'dept_name_Index').show(10)
 # In[98]:
 
 # create object and specify input and output column
-OHE_sex = OneHotEncoderEstimator(inputCols=['sex_Index'],outputCols=['sex_vec'])
-OHE_dept_name = OneHotEncoderEstimator(inputCols=['dept_name_Index'],outputCols=['dept_name_vec'])
+OHE_sex = OneHotEncoder(inputCols=['sex_Index'],outputCols=['sex_vec'])
+OHE_dept_name = OneHotEncoder(inputCols=['dept_name_Index'],outputCols=['dept_name_vec'])
 
 # transform the data
 df = OHE_sex.fit(df).transform(df)
@@ -1049,7 +1048,7 @@ catCols = ['sex', 'dept_name']
 indexers = [StringIndexer(inputCol=column, outputCol=column+"_Index") for column in catCols ]
 
 # One Hot Encoder Estimator
-encoders = OneHotEncoderEstimator(inputCols=[i.getOutputCol() for i in indexers], \
+encoders = OneHotEncoder(inputCols=[i.getOutputCol() for i in indexers], \
                                   outputCols=[i.getOutputCol()+"_vec" for i in indexers])
 
 # Vector Assembler

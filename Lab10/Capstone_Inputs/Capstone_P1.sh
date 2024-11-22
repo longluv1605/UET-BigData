@@ -1,6 +1,6 @@
-cd /home/hadoop/Capstone_Project
-find . -name "*.avsc" -exec rm {} \;
-find . -name "*.java" -exec rm {} \;
+# cd /home/hadoop/Capstone_Project
+# find . -name "*.avsc" -exec rm {} \;
+# find . -name "*.java" -exec rm {} \;
 
 rm -r /home/hadoop/Capstone_Project
 mkdir -p /home/hadoop/Capstone_Project
@@ -9,9 +9,10 @@ mkdir -p /home/hadoop/Capstone_Project
 mkdir -p /home/hadoop/Capstone_Project/Capstone_Outputs
 mkdir -p /home/hadoop/Capstone_Project/Capstone_Inputs
 cp -r /home/hadoop/Documents/UET-BigData/Lab10/Capstone_Inputs/* /home/hadoop/Capstone_Project/Capstone_Inputs
-cd /home/hadoop/Capstone_Project/Capstone_Inputs
 
-mysql -u hive -p000000 -D capstone_proj -e 'source CreateMySQLTables.sql' > /home/hadoop/Capstone_Project/Capstone_Outputs/Cap_MySQLTables.txt
+cd /home/hadoop/Capstone_Project
+
+mysql -u hive -p000000 -D capstone_proj -e 'source Capstone_Inputs/CreateMySQLTables.sql' > /home/hadoop/Capstone_Project/Capstone_Outputs/Cap_MySQLTables.txt
 
 hdfs dfs -rm -r /user/hive/warehouse/Capstone
 hdfs dfs -mkdir -p /user/hive/warehouse/Capstone
@@ -29,13 +30,15 @@ hdfs dfs -put  salaries.avsc /user/hive/avsc/salaries.avsc
 hadoop fs -chmod +rwx /user/hive/avsc/*
 hadoop fs -chmod +rwx /user/hive/warehouse/Capstone/*
 
-hive -f HiveDB.hql > /home/hadoop/Capstone_Project/Capstone_Outputs/Cap_HiveDB.txt
+hive --service metastore &
+hive --service hiveserver2 &
+hive -f Capstone_Inputs/HiveDB.hql > /home/hadoop/Capstone_Project/Capstone_Outputs/Cap_HiveDB.txt
 
-impala-shell -i ip-10-1-2-103.ap-south-1.compute.internal -f EDA.sql > /home/hadoop/Capstone_Project/Capstone_Outputs/Cap_ImpalaAnalysis.txt
+impala-shell -i localhost -f Capstone_Inputs/EDA.sql > /home/hadoop/Capstone_Project/Capstone_Outputs/Cap_ImpalaAnalysis.txt
 
-hive -f HiveTables.sql > /home/hadoop/Capstone_Project/Capstone_Outputs/Cap_HiveTables.txt
+hive -f Capstone_Inputs/HiveTables.sql > /home/hadoop/Capstone_Project/Capstone_Outputs/Cap_HiveTables.txt
 
-spark-submit capstone.py > /home/hadoop/Capstone_Project/Capstone_Outputs/Cap_SparkSQL_EDA_ML.txt
+spark-submit Capstone_Inputs/capstone.py > /home/hadoop/Capstone_Project/Capstone_Outputs/Cap_SparkSQL_EDA_ML.txt
 
 hdfs dfs -copyToLocal /user/hive/random_forest.model /home/hive/Capstone_Outputs/
 zip -r /home/hadoop/Capstone_Project/Capstone_Outputs/random_forest.model.zip /home/hadoop/Capstone_Project/Capstone_Outputs/random_forest.model
