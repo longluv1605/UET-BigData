@@ -1,4 +1,4 @@
-USE capstone_proj;
+USE capstone_proj_cap;
 
 SET mapreduce.input.fileinputformat.split.maxsize = 67108864;
 SET mapreduce.map.memory.mb = 2048;
@@ -33,3 +33,4 @@ UNION
 SELECT 'dept_emp1', count(*) FROM dept_emp1
 UNION
 SELECT 'salaries', count(*) FROM salaries;
+

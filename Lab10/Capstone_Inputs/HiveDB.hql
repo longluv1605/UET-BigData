@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS capstone_proj CASCADE;
-CREATE DATABASE capstone_proj;
-USE capstone_proj;
+DROP DATABASE IF EXISTS capstone_proj_cap CASCADE;
+CREATE DATABASE capstone_proj_cap;
+USE capstone_proj_cap;
 
 SET mapreduce.input.fileinputformat.split.maxsize = 67108864;
 SET mapreduce.map.memory.mb = 2048;
@@ -14,3 +14,4 @@ CREATE EXTERNAL TABLE employees STORED AS AVRO LOCATION '/user/hive/warehouse/Ca
 CREATE EXTERNAL TABLE dept_manager STORED AS AVRO LOCATION '/user/hive/warehouse/Capstone/dept_manager' TBLPROPERTIES ('avro.schema.url'='/user/hive/avsc/dept_manager.avsc');
 CREATE EXTERNAL TABLE dept_emp STORED AS AVRO LOCATION '/user/hive/warehouse/Capstone/dept_emp' TBLPROPERTIES ('avro.schema.url'='/user/hive/avsc/dept_emp.avsc');
 CREATE EXTERNAL TABLE salaries STORED AS AVRO LOCATION '/user/hive/warehouse/Capstone/salaries' TBLPROPERTIES ('avro.schema.url'='/user/hive/avsc/salaries.avsc');
+

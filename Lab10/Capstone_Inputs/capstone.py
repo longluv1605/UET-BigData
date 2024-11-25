@@ -15,10 +15,10 @@ from pyspark.ml import Pipeline # type: ignore
 from pyspark.ml.feature import OneHotEncoder, StringIndexer, VectorAssembler # type: ignore
 
 # Initialize Spark session with Hive support
-spark = SparkSession.builder.appName("Subham_Capstone") \
+spark = SparkSession.builder.appName("Long-22022604-Capstone") \
     .config("hive.metastore.uris", "thrift://localhost:9083") \
     .config("spark.sql.catalogImplementation", "hive") \
-    .config("spark.sql.warehouse.dir", "hdfs://localhost:9000/user/hive/Capstone") \
+    .config("spark.sql.warehouse.dir", "hdfs://localhost:9000/user/hive/warehouse") \
     .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer") \
     .enableHiveSupport() \
     .getOrCreate()
@@ -35,13 +35,13 @@ pd.set_option('display.max_columns', None)
 
 # Creating Local Views and Spark Dataframes to call these objects from memory.
 
-departments = spark.table('anabig114212_cap.departments')
+departments = spark.table('capstone_proj.departments')
 departments.createOrReplaceTempView('departments')
 
-titles = spark.table('anabig114212_cap.titles')
+titles = spark.table('capstone_proj.titles')
 titles.createOrReplaceTempView('titles')
 
-employees = spark.table('anabig114212_cap.employees')
+employees = spark.table('capstone_proj.employees')
 employees = employees.withColumn('birth_date',
                                  to_date(col('birth_date'),
                                          'yyyy-MM-dd'))\
@@ -53,14 +53,14 @@ employees = employees.withColumn('birth_date',
                         'yyyy-MM-dd'))  # Converting to Proper date formats
 employees.createOrReplaceTempView('employees')
 
-dept_emp_raw = spark.table('anabig114212_cap.dept_emp')
-dept_emp = spark.table('anabig114212_cap.dept_emp1')
+dept_emp_raw = spark.table('capstone_proj.dept_emp')
+dept_emp = spark.table('capstone_proj.dept_emp1')
 dept_emp.createOrReplaceTempView('dept_emp')
 
-dept_manager = spark.table('anabig114212_cap.dept_manager')
+dept_manager = spark.table('capstone_proj.dept_manager')
 dept_manager.createOrReplaceTempView('dept_manager')
 
-salaries = spark.table('anabig114212_cap.salaries')
+salaries = spark.table('capstone_proj.salaries')
 salaries.createOrReplaceTempView('salaries')
 
 
