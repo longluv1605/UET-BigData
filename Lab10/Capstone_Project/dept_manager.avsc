@@ -1,0 +1,19 @@
+{
+  "type" : "record",
+  "name" : "dept_manager",
+  "doc" : "Sqoop import of dept_manager",
+  "fields" : [ {
+    "name" : "dept_no",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "dept_no",
+    "sqlType" : "12"
+  }, {
+    "name" : "emp_no",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "emp_no",
+    "sqlType" : "4"
+  } ],
+  "tableName" : "dept_manager"
+}
