@@ -6,10 +6,10 @@ import json
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 # Replace the values below with yours
-ACCESS_TOKEN = '1822297622469541889-WURUytX3rcz5KUN8KxZUipXlt1JleB'
-ACCESS_SECRET = 'PX2DXTYnD5svLvh9uHX3HuCVCEjJE3Nfi76KoXYXzIutC'
-CONSUMER_KEY = 'HBXv9Dr2DdU7Jgsr2rxOV7nFH'
-CONSUMER_SECRET = 'OgG2ELQjdOg59MidpxxUIFbWRFGWjxfA0A2vBrQe7xSh8Nr3nj'
+ACCESS_TOKEN = 
+ACCESS_SECRET = 
+CONSUMER_KEY = 
+CONSUMER_SECRET = 
 my_auth = requests_oauthlib.OAuth1(CONSUMER_KEY, CONSUMER_SECRET,ACCESS_TOKEN, ACCESS_SECRET)
 
 analyzer = SentimentIntensityAnalyzer()
